@@ -44,7 +44,7 @@ public class OrderScreen extends AppCompatActivity {
                 // Add some data to the new location
                 Map<String, String> newOrder = new HashMap<String, String>();
                 newOrder.put("beer:", beerNum.getText().toString());
-                newOrder.put("burger", "1");
+                newOrder.put("burger", burgerNum.getText().toString());
                 newOrder.put("chips", chipsNum.getText().toString());
                 newOrder.put("complete", "false");
                 newOrder.put("hole", holeNum.getText().toString());

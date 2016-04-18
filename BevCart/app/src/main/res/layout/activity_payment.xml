@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jcurcio.rorc.bevcart.PaymentActivity">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/submitPaymentBut"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cardNum"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:hint="Card Number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cardExpMonth"
+        android:layout_below="@+id/cardNum"
+        android:layout_alignLeft="@+id/cardNum"
+        android:layout_alignStart="@+id/cardNum"
+        android:hint="Expiration Month" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cardExpYear"
+        android:layout_below="@+id/cardExpMonth"
+        android:layout_alignLeft="@+id/cardExpMonth"
+        android:layout_alignStart="@+id/cardExpMonth"
+        android:hint="Expiration Year" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cardCVC"
+        android:layout_below="@+id/cardExpYear"
+        android:layout_alignLeft="@+id/cardExpYear"
+        android:layout_alignStart="@+id/cardExpYear"
+        android:hint="CVC" />
+
+</RelativeLayout>

@@ -14,9 +14,13 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button login;
+    private Button signUp;
     private TextView userEmail;
     private TextView userPassword;
     private TextView test;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         login = (Button)findViewById(R.id.loginButton);
+        signUp = (Button)findViewById(R.id.signUpBut);
         userEmail = (TextView) findViewById(R.id.userEmail);
         userPassword = (TextView) findViewById(R.id.userPassword);
 
@@ -44,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
-
                 // Create a handler to handle the result of the authentication
                 Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
                     @Override
@@ -62,6 +65,31 @@ public class MainActivity extends AppCompatActivity {
                 };
                 // Or with an email/password combination
                 ref.authWithPassword(userEmail.getText().toString(), userPassword.getText().toString(), authResultHandler);
+            }
+        });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.createUser(userEmail.getText().toString(), userPassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+                    @Override
+                    public void onSuccess(Map<String, Object> result) {
+                        System.out.println("Successfully created user account with uid: " + result.get("uid"));
+
+                        AuthData authData = ref.getAuth();
+                        Firebase roleRef = ref.child("role");
+
+                        Map<String, String> post1 = new HashMap<String, String>();
+                        post1.put(authData.getUid(), "user");
+                        roleRef.push().setValue(post1);
+                        test.setText("user Created");
+                    }
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        // there was an error
+                        test.setText(firebaseError.toString());
+                    }
+                });
             }
         });
     }
