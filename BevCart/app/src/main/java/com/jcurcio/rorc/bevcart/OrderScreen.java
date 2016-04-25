@@ -16,12 +16,12 @@ import java.util.Map;
 
 public class OrderScreen extends AppCompatActivity {
 
-    Button placeOrder;
-    TextView beerNum;
-    TextView hotdogNum;
-    TextView burgerNum;
-    TextView chipsNum;
-    TextView holeNum;
+    private Button placeOrder;
+    private TextView beerNum;
+    private TextView hotdogNum;
+    private TextView burgerNum;
+    private TextView chipsNum;
+    private TextView holeNum;
 
     Firebase ref = new Firebase("https://bevcart.firebaseio.com");
 
@@ -29,12 +29,14 @@ public class OrderScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_screen);
+        Firebase.setAndroidContext(this);
 
         placeOrder = (Button) findViewById(R.id.placeOrder);
         beerNum = (TextView) findViewById(R.id.beerNum);
         hotdogNum = (TextView) findViewById(R.id.hotdogNum);
         chipsNum = (TextView) findViewById(R.id.chipsNum);
         holeNum = (TextView) findViewById(R.id.chipsNum);
+        burgerNum = (TextView) findViewById(R.id.burgerNum);
 
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +44,8 @@ public class OrderScreen extends AppCompatActivity {
                 Firebase postOrderRef = ref.child("orders");
                 Firebase postOrder = postOrderRef.push();
                 // Add some data to the new location
+                int total = Integer.parseInt(beerNum.getText().toString()) * 350 + Integer.parseInt(burgerNum.getText().toString()) * 200 +
+                        Integer.parseInt(chipsNum.getText().toString()) * 100 + Integer.parseInt(hotdogNum.getText().toString()) * 150;
                 Map<String, String> newOrder = new HashMap<String, String>();
                 newOrder.put("beer:", beerNum.getText().toString());
                 newOrder.put("burger", burgerNum.getText().toString());
@@ -50,7 +54,7 @@ public class OrderScreen extends AppCompatActivity {
                 newOrder.put("hole", holeNum.getText().toString());
                 newOrder.put("hotdog", hotdogNum.getText().toString());
                 newOrder.put("provider", "n/a");
-                newOrder.put("price", "40000");
+                newOrder.put("price", String.valueOf(total));
                 newOrder.put("user", ref.getAuth().getUid().toString());
 
                 postOrder.setValue(newOrder);
